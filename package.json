@@ -1,0 +1,26 @@
+{
+  "name": "gotemplate-yaml",
+  "displayName": "Go Template in YAML",
+  "description": "Syntax highlighting for Go template expressions embedded in YAML, including block scalars.",
+  "version": "0.1.0",
+  "publisher": "cujarrett",
+  "license": "SEE LICENSE IN LICENSE",
+  "icon": "images/icon.png",
+  "engines": { "vscode": "^1.80.0" },
+  "categories": ["Programming Languages"],
+  "keywords": ["go template", "gotemplate", "yaml", "crossplane", "helm"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cujarrett/gotemplate-yaml.git"
+  },
+  "bugs": { "url": "https://github.com/cujarrett/gotemplate-yaml/issues" },
+  "contributes": {
+    "grammars": [
+      {
+        "scopeName": "gotemplate.yaml.injection",
+        "path": "./syntaxes/gotemplate-yaml.tmLanguage.json",
+        "injectTo": ["source.yaml"]
+      }
+    ]
+  }
+}

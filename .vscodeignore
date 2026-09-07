@@ -1,0 +1,5 @@
+.github/**
+.gitignore
+CLAUDE.md
+justfile
+renovate.json

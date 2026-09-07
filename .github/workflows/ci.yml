@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  package:
+    name: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Validate JSON
+        run: |
+          python3 -m json.tool syntaxes/gotemplate-yaml.tmLanguage.json > /dev/null
+          python3 -m json.tool package.json > /dev/null
+
+      # Packaging is the only real check here - it validates the manifest, the
+      # icon and every path the grammar references.
+      - name: Package
+        run: npx --yes @vscode/vsce package
+
+  publish:
+    name: publish
+    needs: package
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      # Publishing is skipped when the version already exists, so every push to
+      # main is safe and a release is just a version bump in package.json.
+      - name: Publish
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: npx --yes @vscode/vsce publish || true

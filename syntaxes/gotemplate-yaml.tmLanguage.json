@@ -1,0 +1,73 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Go Template in YAML",
+  "scopeName": "gotemplate.yaml.injection",
+  "patterns": [
+    {
+      "include": "#gotemplate-comment"
+    },
+    {
+      "include": "#gotemplate-expression"
+    }
+  ],
+  "repository": {
+    "gotemplate-comment": {
+      "begin": "\\{\\{-?\\s*/\\*",
+      "end": "\\*/\\s*-?\\}\\}",
+      "name": "comment.block.gotemplate"
+    },
+    "gotemplate-expression": {
+      "begin": "\\{\\{-?",
+      "end": "-?\\}\\}",
+      "name": "meta.expression.gotemplate",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.gotemplate"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "keyword.control.gotemplate"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#gotemplate-keywords"
+        },
+        {
+          "include": "#gotemplate-variables"
+        },
+        {
+          "include": "#gotemplate-functions"
+        },
+        {
+          "include": "#gotemplate-strings"
+        },
+        {
+          "include": "#gotemplate-numbers"
+        }
+      ]
+    },
+    "gotemplate-keywords": {
+      "match": "\\b(if|else|end|range|with|define|template|block|break|continue)\\b",
+      "name": "keyword.control.gotemplate"
+    },
+    "gotemplate-variables": {
+      "match": "\\$[A-Za-z_][A-Za-z0-9_]*",
+      "name": "variable.other.gotemplate"
+    },
+    "gotemplate-functions": {
+      "match": "(?<=\\|\\s*)[A-Za-z_][A-Za-z0-9_]*|\\b(default|quote|toJson|toYaml|sha256sum|trunc|upper|lower|replace|printf|index|len|eq|ne|gt|lt|ge|le|and|or|not|dict|list|append|get)\\b",
+      "name": "support.function.gotemplate"
+    },
+    "gotemplate-strings": {
+      "match": "\"(?:[^\"\\\\]|\\\\.)*\"",
+      "name": "string.quoted.double.gotemplate"
+    },
+    "gotemplate-numbers": {
+      "match": "\\b[0-9]+\\b",
+      "name": "constant.numeric.gotemplate"
+    }
+  },
+  "injectionSelector": "L:source.yaml string.unquoted.block.yaml, L:source.yaml"
+}
