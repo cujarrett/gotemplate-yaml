@@ -12,7 +12,7 @@ YAML has no idea what `{{ }}` means, so a template in a manifest renders as one 
 code --install-extension cujarrett.gotemplate-yaml
 ```
 
-It injects into `source.yaml`, so every YAML file is covered with no configuration. Colours come from your theme.
+It injects into `source.yaml`, so every YAML file is covered with no configuration. Colors come from your theme.
 
 Highlighting is lexical. It shows you where the code is, not whether it is correct.
 
