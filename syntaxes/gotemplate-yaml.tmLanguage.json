@@ -12,12 +12,12 @@
   ],
   "repository": {
     "gotemplate-comment": {
-      "begin": "\\{\\{-?\\s*/\\*",
+      "begin": "(?:\\{\\{-?|(?<=\\{)\\{-?)\\s*/\\*",
       "end": "\\*/\\s*-?\\}\\}",
       "name": "comment.block.gotemplate"
     },
     "gotemplate-expression": {
-      "begin": "\\{\\{-?",
+      "begin": "\\{\\{-?|(?<=\\{)\\{-?",
       "end": "-?\\}\\}",
       "name": "meta.expression.gotemplate",
       "beginCaptures": {
@@ -32,16 +32,25 @@
       },
       "patterns": [
         {
-          "include": "#gotemplate-keywords"
+          "include": "#gotemplate-strings"
+        },
+        {
+          "include": "#gotemplate-raw-strings"
         },
         {
           "include": "#gotemplate-variables"
         },
         {
-          "include": "#gotemplate-functions"
+          "include": "#gotemplate-fields"
         },
         {
-          "include": "#gotemplate-strings"
+          "include": "#gotemplate-keywords"
+        },
+        {
+          "include": "#gotemplate-constants"
+        },
+        {
+          "include": "#gotemplate-functions"
         },
         {
           "include": "#gotemplate-numbers"
@@ -49,15 +58,23 @@
       ]
     },
     "gotemplate-keywords": {
-      "match": "\\b(if|else|end|range|with|define|template|block|break|continue)\\b",
+      "match": "(?<![\\w.$])(if|else|end|range|with|define|template|block|break|continue)\\b",
       "name": "keyword.control.gotemplate"
     },
+    "gotemplate-constants": {
+      "match": "(?<![\\w.$])(nil|true|false)\\b",
+      "name": "constant.language.gotemplate"
+    },
     "gotemplate-variables": {
-      "match": "\\$[A-Za-z_][A-Za-z0-9_]*",
+      "match": "\\$([A-Za-z_][A-Za-z0-9_]*)?",
       "name": "variable.other.gotemplate"
     },
+    "gotemplate-fields": {
+      "match": "\\.([A-Za-z_][A-Za-z0-9_]*)?",
+      "name": "variable.other.property.gotemplate"
+    },
     "gotemplate-functions": {
-      "match": "(?<=\\|\\s*)[A-Za-z_][A-Za-z0-9_]*|\\b(default|quote|toJson|toYaml|sha256sum|trunc|upper|lower|replace|printf|index|len|eq|ne|gt|lt|ge|le|and|or|not|dict|list|append|get)\\b",
+      "match": "(?<![\\w.$])[A-Za-z_][A-Za-z0-9_]*",
       "name": "support.function.gotemplate"
     },
     "gotemplate-strings": {
@@ -65,9 +82,13 @@
       "name": "string.quoted.double.gotemplate"
     },
     "gotemplate-numbers": {
-      "match": "\\b[0-9]+\\b",
+      "match": "(?<![\\w.$])-?[0-9]+(\\.[0-9]+)?\\b",
       "name": "constant.numeric.gotemplate"
+    },
+    "gotemplate-raw-strings": {
+      "match": "`[^`]*`",
+      "name": "string.quoted.other.raw.gotemplate"
     }
   },
-  "injectionSelector": "L:source.yaml string.unquoted.block.yaml, L:source.yaml"
+  "injectionSelector": "L:source.yaml string.unquoted.block.yaml, L:source.yaml string.unquoted.plain.out.yaml, L:source.yaml string.unquoted.plain.in.yaml, L:source.yaml string.quoted.double.yaml, L:source.yaml string.quoted.single.yaml, L:source.yaml"
 }
