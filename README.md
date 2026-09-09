@@ -19,7 +19,3 @@ Highlighting is lexical. It shows you where the code is, not whether it is corre
 ## Develop
 
 `package.json` plus one TextMate grammar, no runtime code. `just lint`, `just build`, `just run` to install locally.
-
-## License
-
-[MIT NON-AI](LICENSE)
