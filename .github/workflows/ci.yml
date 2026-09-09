@@ -34,14 +34,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
 
       - uses: actions/setup-node@v7
         with:
           node-version: 24
 
-      # Publishing is skipped when the version already exists, so every push to
-      # main is safe and a release is just a version bump in package.json.
+      # A release is a version bump in package.json. Publishing any other push
+      # would fail on a version the Marketplace already has, so check first and
+      # let a real publish failure fail the job.
       - name: Publish
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
-        run: npx --yes @vscode/vsce publish || true
+        run: |
+          new=$(jq -r .version package.json)
+          old=$(git show HEAD^:package.json | jq -r .version)
+          if [ "$new" = "$old" ]; then
+            echo "version still $new, nothing to publish"
+            exit 0
+          fi
+          echo "publishing $old -> $new"
+          npx --yes @vscode/vsce publish
