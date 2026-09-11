@@ -47,6 +47,12 @@
           "include": "#gotemplate-keywords"
         },
         {
+          "include": "#gotemplate-pipe"
+        },
+        {
+          "include": "#gotemplate-operators"
+        },
+        {
           "include": "#gotemplate-constants"
         },
         {
@@ -61,13 +67,21 @@
       "match": "(?<![\\w.$])(if|else|end|range|with|define|template|block|break|continue)\\b",
       "name": "keyword.control.gotemplate"
     },
+    "gotemplate-pipe": {
+      "match": "\\|",
+      "name": "keyword.operator.function.infix.gotemplate"
+    },
+    "gotemplate-operators": {
+      "match": ":=|=",
+      "name": "keyword.operator.assignment.gotemplate"
+    },
     "gotemplate-constants": {
       "match": "(?<![\\w.$])(nil|true|false)\\b",
       "name": "constant.language.gotemplate"
     },
     "gotemplate-variables": {
       "match": "\\$([A-Za-z_][A-Za-z0-9_]*)?",
-      "name": "variable.other.gotemplate"
+      "name": "variable.language.gotemplate"
     },
     "gotemplate-fields": {
       "match": "\\.([A-Za-z_][A-Za-z0-9_]*)?",

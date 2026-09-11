@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gotemplate-yaml-fixture
+data:
+  block-scalar: |
+    {{- $xr := .observed.composite.resource }}
+    {{- $name := $xr.metadata.name }}
+    {{- $size := $xr.spec.parameters.size | default "sm" }}
+    {{- $nodeTypeMap := dict "xs" "cache.t4g.micro" "sm" "cache.t4g.small" }}
+    {{- $nodeType := get $nodeTypeMap $size | default "cache.t4g.micro" }}
+    {{- if eq $size "sm" }}
+    small
+    {{- else if and (eq $size "md") (ne $name "") }}
+    medium
+    {{- else }}
+    other
+    {{- end }}
+    {{- range $i, $v := .items }}
+    - {{ $i }}: {{ $v.Name }}
+    {{- end }}
+    {{- with .observed.resources }}
+    has resources
+    {{- end }}
+    {{- /* a block comment */ -}}
+    {{- $count := 42 }}
+    {{- $ratio := -1.5 }}
+    {{- $raw := `raw string value` }}
+    {{- $flag := true }}
+    {{- $empty := nil }}
+
+  plain-scalar: >-
+    {{ .metadata.name }}-{{ .spec.parameters.env | default "private-cloud" }}
+
+  quoted-double: "{{ printf \"arn:aws:iam::%s:role/%s\" $awsAccountId $name }}"
+
+  quoted-single: '{{ .status.conditions }}'
