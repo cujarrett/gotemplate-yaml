@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1
+
+- Improve the demo image in the README.
+
+## 0.3.0
+
+- Colour `$variables`, the `|` pipe and the `:=` and `=` operators distinctly, so they no longer blend into the surrounding expression.
+
 ## 0.2.0
 
 - Highlight dotted field paths like `.observed.foo.bar`.
