@@ -32,6 +32,9 @@
       },
       "patterns": [
         {
+          "include": "#gotemplate-yaml-escaped-strings"
+        },
+        {
           "include": "#gotemplate-strings"
         },
         {
@@ -90,6 +93,10 @@
     "gotemplate-functions": {
       "match": "(?<![\\w.$])[A-Za-z_][A-Za-z0-9_]*",
       "name": "support.function.gotemplate"
+    },
+    "gotemplate-yaml-escaped-strings": {
+      "match": "\\\\\"(?:\\\\\\\\\\\\.|[^\\\\\"])*?\\\\\"",
+      "name": "string.quoted.double.gotemplate"
     },
     "gotemplate-strings": {
       "match": "\"(?:[^\"\\\\]|\\\\.)*\"",

@@ -33,5 +33,8 @@ data:
     {{ .metadata.name }}-{{ .spec.parameters.env | default "private-cloud" }}
 
   quoted-double: "{{ printf \"arn:aws:iam::%s:role/%s\" $awsAccountId $name }}"
+  # Without the escaped-string rule, the key and value below read as part of the template above
+  quoted-double-nested: "{{ printf \"say \\\"%s\\\"\" .spec.parameters.greeting }}"
+  after-escaped: plain value
 
   quoted-single: '{{ .status.conditions }}'
