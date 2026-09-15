@@ -7,6 +7,7 @@ extension is `package.json` plus one TextMate grammar.
 
 - **Never run `git add`, `git commit`, `git push`, or any git command that writes to the
   index, history, or a remote.** Output the commands instead - staging is the human's review.
+- **Never add a `Co-Authored-By` trailer or a "Generated with Claude Code" line** to commit messages or PR descriptions, including in suggested commit messages. Commits are authored by the user alone.
 - **Always give a suggested commit message**, with `git add` and the commit as two separate
   steps, listing every file explicitly. Never `git add .` or a bare directory.
 - **Never output a `git push` command.**
