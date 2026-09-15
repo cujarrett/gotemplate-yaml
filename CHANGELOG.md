@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+- Highlight a Go string written with escaped quotes inside a double-quoted YAML value, such as `"{{ printf \"%s\" .name }}"`. The closing `\"` used to be read as an escape, so the expression ran past its `}}` and swallowed the following lines.
+
 ## 0.3.1
 
 - Improve the demo image in the README.
