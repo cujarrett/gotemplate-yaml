@@ -1,0 +1,34 @@
+spec:
+  pipeline:
+    - step: render
+      input:
+        inline:
+          template: |
+            # rendered YAML comment
+            apiVersion: v1
+            kind: ConfigMap
+            metadata:
+              name: {{ $name }}-config
+              labels:
+                app: "{{ .name }}"
+            {{- if .enabled }}
+            data:
+              key: value
+            {{- end }}
+            ---
+            apiVersion: v1
+            kind: Secret
+    - step: next
+      functionRef:
+        name: function-auto-ready
+  helm:
+    values: |
+      fullnameOverride: json-exporter
+      list:
+        - a
+        - b
+    other: plain
+  script: |
+    #!/bin/sh
+    key: not yaml
+after: done

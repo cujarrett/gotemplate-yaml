@@ -14,6 +14,8 @@ code --install-extension cujarrett.gotemplate-yaml
 
 It injects into `source.yaml`, so every YAML file is covered with no configuration. Colors come from your theme.
 
+The YAML inside a `template: |` or `values: |` block is highlighted as YAML. Those are the keys Crossplane go-templating and ArgoCD Helm values use, and both always hold YAML. Every other block scalar stays a plain string.
+
 Highlighting is lexical. It shows you where the code is, not whether it is correct.
 
 ## Develop

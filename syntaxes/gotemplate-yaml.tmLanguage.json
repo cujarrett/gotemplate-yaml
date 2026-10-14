@@ -4,6 +4,9 @@
   "scopeName": "gotemplate.yaml.injection",
   "patterns": [
     {
+      "include": "#embedded-yaml"
+    },
+    {
       "include": "#gotemplate-comment"
     },
     {
@@ -116,6 +119,65 @@
     "gotemplate-raw-strings": {
       "match": "`[^`]*`",
       "name": "string.quoted.other.raw.gotemplate"
+    },
+    "embedded-yaml": {
+      "comment": [
+        "template: Crossplane go-templating inline template, always YAML.",
+        "values: ArgoCD Helm values, always YAML.",
+        "The structure mirrors VS Code's own literal block scalar rule, with the content handed to source.yaml.embedded instead of a string."
+      ],
+      "begin": "(?<=template: |values: )(\\|)([+-]?+)",
+      "while": "\\G",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.flow.block-scalar.literal.yaml"
+        },
+        "2": {
+          "name": "storage.modifier.chomping-indicator.yaml"
+        }
+      },
+      "name": "meta.scalar.yaml",
+      "patterns": [
+        {
+          "begin": "$",
+          "while": "\\G",
+          "patterns": [
+            {
+              "begin": "\\G(?!$)(?=( *+))",
+              "end": "\\G(?!\\1)(?=[\t ]*+#)",
+              "patterns": [
+                {
+                  "begin": "\\G( *+)",
+                  "while": "\\G(?>(\\1)|( *+)($|[^\t#]|[\t ]++[^#]))",
+                  "captures": {
+                    "1": {
+                      "name": "punctuation.whitespace.indentation.yaml"
+                    },
+                    "2": {
+                      "name": "punctuation.whitespace.indentation.yaml"
+                    }
+                  },
+                  "contentName": "meta.embedded.block.yaml",
+                  "patterns": [
+                    {
+                      "include": "source.yaml.embedded"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "begin": "\\G",
+          "end": "$",
+          "patterns": [
+            {
+              "include": "source.yaml.1.2#presentation-detail"
+            }
+          ]
+        }
+      ]
     }
   },
   "injectionSelector": "L:source.yaml string.unquoted.block.yaml, L:source.yaml string.unquoted.plain.out.yaml, L:source.yaml string.unquoted.plain.in.yaml, L:source.yaml string.quoted.double.yaml, L:source.yaml string.quoted.single.yaml, L:source.yaml"

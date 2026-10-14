@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+
+- Highlight the YAML inside `template: |` and `values: |` blocks as YAML, so keys, values and comments in a Crossplane go-templating template or an ArgoCD Helm values block read like the rest of the file.
+
 ## 0.4.0
 
 - Colour Go's built-in functions, such as `eq`, `and`, `printf` and `index`, separately from Sprig functions in themes that style built-ins.
