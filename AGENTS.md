@@ -15,7 +15,7 @@ extension is `package.json` plus one TextMate grammar.
 
 ## Build
 
-`just ci` runs lint then build. `just build` produces the `.vsix`; `just run` installs it
+`just ci` runs lint, test, then build. `just test` compares each fixture in `test/fixtures/` against its `.snap`; after an intended highlighting change, `just snap` rewrites them and the diff is the review. `test/grammars/` is VS Code's own YAML grammar, copied from its install. `just build` produces the `.vsix`; `just run` installs it
 into the local editor to try it.
 
 ## The injection

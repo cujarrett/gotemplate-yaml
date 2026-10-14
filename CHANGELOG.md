@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+
+- Colour Go's built-in functions, such as `eq`, `and`, `printf` and `index`, separately from Sprig functions in themes that style built-ins.
+- Shrink the package from about 2MB to about 20KB.
+
 ## 0.3.2
 
 - Highlight a Go string written with escaped quotes inside a double-quoted YAML value, such as `"{{ printf \"%s\" .name }}"`. The closing `\"` used to be read as an escape, so the expression ran past its `}}` and swallowed the following lines.

@@ -59,6 +59,9 @@
           "include": "#gotemplate-constants"
         },
         {
+          "include": "#gotemplate-builtins"
+        },
+        {
           "include": "#gotemplate-functions"
         },
         {
@@ -89,6 +92,10 @@
     "gotemplate-fields": {
       "match": "\\.([A-Za-z_][A-Za-z0-9_]*)?",
       "name": "variable.other.property.gotemplate"
+    },
+    "gotemplate-builtins": {
+      "match": "(?<![\\w.$])(and|call|eq|ge|gt|html|index|js|le|len|lt|ne|not|or|print|printf|println|slice|urlquery)\\b",
+      "name": "support.function.builtin.gotemplate"
     },
     "gotemplate-functions": {
       "match": "(?<![\\w.$])[A-Za-z_][A-Za-z0-9_]*",

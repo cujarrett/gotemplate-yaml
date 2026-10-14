@@ -1,5 +1,10 @@
 .github/**
+.vscode/**
+test/**
 .gitignore
-CLAUDE.md
+.DS_Store
+AGENTS.md
 justfile
 renovate.json
+demo.png
+logo.png
