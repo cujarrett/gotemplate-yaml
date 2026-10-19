@@ -17,6 +17,14 @@ jobs:
         with:
           node-version: 24
 
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test
+
       - name: Validate JSON
         run: |
           python3 -m json.tool syntaxes/gotemplate-yaml.tmLanguage.json > /dev/null
@@ -41,6 +49,9 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24
+
+      # vsce runs the bundle step, which needs the dev dependencies.
+      - run: npm ci
 
       # --skip-duplicate exits cleanly when the Marketplace already serves this
       # version, so every push to main can run this and only a real bump ships.

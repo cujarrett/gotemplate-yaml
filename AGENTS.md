@@ -1,7 +1,11 @@
 # Go Template in YAML
 
-A VS Code grammar injection. No runtime code, no build step, no dependencies - the whole
-extension is `package.json` plus one TextMate grammar.
+A VS Code extension with two parts.
+
+- Highlighting: one TextMate grammar injected into YAML.
+- Go to definition: [src/definitions.ts](./src/definitions.ts) holds all the logic and has no VS Code dependency, so it runs under `node --test`. [src/extension.ts](./src/extension.ts) registers the provider and reads workspace files.
+
+esbuild bundles both into `dist/extension.js`, used for desktop and vscode.dev alike, so it must not import Node modules. `yaml` is bundled, so every package is a devDependency and `node_modules` never ships.
 
 ## Rules
 
@@ -15,8 +19,14 @@ extension is `package.json` plus one TextMate grammar.
 
 ## Build
 
-`just ci` runs lint, test, then build. `just test` compares each fixture in `test/fixtures/` against its `.snap`; after an intended highlighting change, `just snap` rewrites them and the diff is the review. `test/grammars/` is VS Code's own YAML grammar, copied from its install. `just build` produces the `.vsix`; `just run` installs it
-into the local editor to try it.
+Run `npm ci` once.
+
+- `just ci`: lint (including `tsc`), test, then build.
+- `just test`: unit tests in `test/*.test.ts`, then each fixture in `test/fixtures/` against its `.snap`.
+- `just snap`: rewrites the snapshots after an intended highlighting change. The diff is the review.
+- `just build`: produces the `.vsix`. `just run` installs it into the local editor.
+
+`test/grammars/` is VS Code's own YAML grammar, copied from its install.
 
 ## The injection
 
