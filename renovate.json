@@ -1,3 +1,10 @@
 {
-  "extends": ["github>cujarrett/homelab//.github/renovate-shared"]
+  "extends": ["github>cujarrett/homelab//.github/renovate-shared"],
+  "packageRules": [
+    {
+      "description": "@types/vscode must match engines.vscode or vsce refuses to package. Bump both together by hand.",
+      "matchPackageNames": ["@types/vscode"],
+      "enabled": false
+    }
+  ]
 }

@@ -6,13 +6,16 @@ build:
 
 # Validate the manifest and grammar the same way packaging does.
 lint:
+    npm run typecheck
     python3 -m json.tool syntaxes/gotemplate-yaml.tmLanguage.json > /dev/null
     python3 -m json.tool package.json > /dev/null
     npx --yes @vscode/vsce ls > /dev/null
 
-# Fails if highlighting of test/fixtures/sample.yaml differs from sample.yaml.snap.
+# Go to definition unit tests, then grammar snapshots.
+# Snapshots fail if highlighting of a fixture differs from its .snap.
 # test/grammars/ is VS Code's own YAML grammar, which ours plugs into.
 test:
+    npm test
     npx --yes --package vscode-tmgrammar-test@0.1.3 vscode-tmgrammar-snap -s source.yaml {{grammars}} 'test/fixtures/*.yaml'
 
 # Run after changing highlighting on purpose, then check the .snap diff in git.

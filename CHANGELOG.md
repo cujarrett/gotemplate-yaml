@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+- Go to definition inside `{{ }}`: a `$variable` to its `:=`, an XR field to its XRD property, an `index` resource name to its annotation, and an `include` name to its `define`.
+
 ## 0.5.0
 
 - Highlight the YAML inside `template: |` and `values: |` blocks as YAML, so keys, values and comments in a Crossplane go-templating template or an ArgoCD Helm values block read like the rest of the file.

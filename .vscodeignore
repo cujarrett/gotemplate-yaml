@@ -8,3 +8,7 @@ justfile
 renovate.json
 demo.png
 logo.png
+src/**
+node_modules/**
+tsconfig.json
+package-lock.json

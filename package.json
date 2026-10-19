@@ -1,8 +1,8 @@
 {
   "name": "gotemplate-yaml",
   "displayName": "Go Template in YAML",
-  "description": "Syntax highlighting for Go template expressions embedded in YAML, including block scalars.",
-  "version": "0.5.0",
+  "description": "Syntax highlighting and go to definition for Go template expressions embedded in YAML, including block scalars.",
+  "version": "0.6.0",
   "publisher": "cujarrett",
   "license": "SEE LICENSE IN LICENSE",
   "icon": "images/icon.png",
@@ -26,6 +26,17 @@
   "bugs": {
     "url": "https://github.com/cujarrett/gotemplate-yaml/issues"
   },
+  "main": "./dist/extension.js",
+  "browser": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:yaml"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
   "contributes": {
     "grammars": [
       {
@@ -36,5 +47,18 @@
         ]
       }
     ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run bundle",
+    "bundle": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=browser --target=es2022 --minify",
+    "typecheck": "tsc && tsc -p test",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.1",
+    "@types/vscode": "1.80.0",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2",
+    "yaml": "2.9.1"
   }
 }
