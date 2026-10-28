@@ -55,7 +55,7 @@
     "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/*.test.ts"
   },
   "devDependencies": {
-    "@types/node": "24.19.2",
+    "@types/node": "26.6.5",
     "@types/vscode": "1.80.0",
     "esbuild": "0.28.2",
     "typescript": "7.0.2",
