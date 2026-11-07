@@ -36,3 +36,9 @@ Runtime-only fields such as `metadata.name` have no definition to jump to.
 ## Develop
 
 `npm ci`, then `just ci` to lint, test and package. `just run` installs it locally.
+
+CI publishes to the Marketplace with the `VSCE_PAT` repo secret. To rotate it, create an [Azure DevOps token](https://dev.azure.com/_usersSettings/tokens) with the scope **Marketplace → Manage**, then run this. It prompts for the value.
+
+```bash
+gh secret set VSCE_PAT -R cujarrett/gotemplate-yaml
+```
