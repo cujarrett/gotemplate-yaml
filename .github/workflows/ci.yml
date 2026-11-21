@@ -43,6 +43,10 @@ jobs:
     needs: package
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    # id-token lets the job trade a GitHub OIDC token for a short Marketplace token.
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v7
 
@@ -55,7 +59,6 @@ jobs:
 
       # --skip-duplicate exits cleanly when the Marketplace already serves this
       # version, so every push to main can run this and only a real bump ships.
+      # The Marketplace trusts this repo and workflow, so no token is stored.
       - name: Publish
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-        run: npx --yes @vscode/vsce publish --skip-duplicate
+        run: npx --yes @vscode/vsce publish --oidc --skip-duplicate

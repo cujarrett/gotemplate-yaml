@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.1
+
+- Publish with Marketplace trusted publishing. No feature changes.
+
 ## 0.6.0
 
 - Go to definition inside `{{ }}`: a `$variable` to its `:=`, an XR field to its XRD property, an `index` resource name to its annotation, and an `include` name to its `define`.

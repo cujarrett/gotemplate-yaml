@@ -27,7 +27,3 @@ ci: lint test build
 # Install the packaged build into the local editor to try it.
 run: build
     code --install-extension $(ls -t *.vsix | head -1) --force
-
-# Publish to the Marketplace. Needs VSCE_PAT in the environment.
-publish:
-    npx --yes @vscode/vsce publish

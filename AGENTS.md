@@ -42,7 +42,7 @@ first because that is where Crossplane, Helm and Argo put templates.
 
 ## Publishing
 
-`just publish` needs `VSCE_PAT` in the environment, from an Azure DevOps personal access
-token with Marketplace publish scope. CI publishes on a push to main and skips silently
+Only CI publishes. It uses trusted publishing (`vsce publish --oidc`), so no token is stored.
+CI publishes on a push to main and skips silently
 when the version already exists, so a release is a version bump in `package.json` plus a
 `CHANGELOG.md` entry.
